@@ -1,5 +1,10 @@
 # PsiClinic API
 
+[![CI](https://github.com/IagoSBX/psiclinic-api/actions/workflows/ci.yml/badge.svg)](https://github.com/IagoSBX/psiclinic-api/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Java](https://img.shields.io/badge/Java-17-orange.svg)](https://openjdk.org/projects/jdk/17/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3.x-brightgreen.svg)](https://spring.io/projects/spring-boot)
+
 API REST para gerenciamento de uma clínica de psicologia: cadastro de pacientes, psicólogos e agendamento de sessões de terapia.
 
 ## Descrição do projeto
@@ -87,6 +92,16 @@ http://localhost:8080/swagger-ui.html
 ```bash
 mvn test
 ```
+
+O projeto tem três camadas de testes automatizados (todos rodam sem precisar de MySQL — usam H2 em memória):
+
+| Camada | Local | O que cobre |
+|---|---|---|
+| Unitários | `service/*ServiceTest` | Regras de negócio isoladas, com repositório mockado (Mockito) |
+| Controller (web) | `controller/*ControllerTest` | Roteamento HTTP, validação de payload e mapeamento de exceções para status HTTP (`@WebMvcTest`) |
+| Integração | `integration/*IntegrationTest` | Fluxo ponta a ponta (controller → service → JPA → banco H2), incluindo a regra de conflito de horário |
+
+Todo push e pull request para `main` roda essa suíte automaticamente via [GitHub Actions](.github/workflows/ci.yml).
 
 ## Endpoints
 
@@ -246,5 +261,5 @@ Erros são retornados em um formato padronizado pelo `@RestControllerAdvice`:
 
 ## Licença
 
-Projeto de uso interno/educacional.
+Distribuído sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
 # psiclinic-api
