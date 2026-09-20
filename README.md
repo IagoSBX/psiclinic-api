@@ -247,3 +247,4 @@ Erros são retornados em um formato padronizado pelo `@RestControllerAdvice`:
 ## Licença
 
 Projeto de uso interno/educacional.
+# psiclinic-api
